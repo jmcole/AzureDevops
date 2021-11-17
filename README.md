@@ -1,11 +1,11 @@
 # Overview
 
-<TODO: complete this with an overview of your project>
+This project implements a Python Flask application to serve out predictions for Boston housing prices through an sklearn machine learning model. This model has been trained to predict housing prices based on features such as average rooms in a home, highway access, and teacher-to-pupil ratios. Thiis project will also implement a Continous Delivery and Continuous Integration with Github and MS Azure.
 
 ## Project Plan
 <TODO: Project Plan
 
-* A link to a Trello board for the project
+* https://trello.com/b/8bmIWcdN 
 * A link to a spreadsheet that includes the original and final project plan>
 
 ## Instructions
