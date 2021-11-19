@@ -111,7 +111,7 @@ def test_hello_subtract():
 python3 -m venv ~/.myrepo
 source ~/.myrepo/bin/activate
 ```
-3. Run `make all``. This will install, lint, and test the code. Code should pass all tests before proceeding.
+3. Run `make all`. This will install, lint, and test the code. Code should pass all tests before proceeding.
 ![Succesful Test](./screenshots/pass_tests.png)
 
 ### Configure Github Actions
