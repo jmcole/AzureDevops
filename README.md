@@ -3,15 +3,15 @@
 This project implements a Python Flask application to serve out predictions for Boston housing prices through an sklearn machine learning model. This model has been trained to predict housing prices based on features such as average rooms in a home, highway access, and teacher-to-pupil ratios. Thiis project will also implement a Continous Delivery and Continuous Integration with Github and MS Azure.
 
 ## Project Plan
-<TODO: Project Plan
 
-* https://trello.com/b/8bmIWcdN 
-* A link to a spreadsheet that includes the original and final project plan>
+* [Trello](https://trello.com/b/8bmIWcdN )
+* [Project Spreadsheet](./screenshots/project-management-AzureDevOps.xlsx)
+
+### Architecture
+![Architecture](./screenshots/architecture.png)
+
 
 ## Instructions
-
-<TODO:  
-* Architectural Diagram (Shows how key parts of the system work)>
 
 ### Generate SSH Keys and load into Github
 
@@ -147,43 +147,90 @@ jobs:
 ```
 5. Ensure Tests Pass
 ![Github](./screenshots/actions.PNG)
+
 ![Github](./screenshots/actions3.PNG)
 
-* Project running on Azure App Service
-
-* Project cloned into Azure Cloud Shell
-
-* Passing tests that are displayed after running the `make all` command from the `Makefile`
-
-* Output of a test run
-
-* Successful deploy of the project in Azure Pipelines.  [Note the official documentation should be referred to and double checked as you setup CI/CD](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python-webapp?view=azure-devops).
-
-* Running Azure App Service from Azure Pipelines automatic deployment
-
-* Successful prediction from deployed flask app in Azure Cloud Shell.  [Use this file as a template for the deployed prediction](https://github.com/udacity/nd082-Azure-Cloud-DevOps-Starter-Code/blob/master/C2-AgileDevelopmentwithAzure/project/starter_files/flask-sklearn/make_predict_azure_app.sh).
-The output should look similar to this:
-
-```bash
-udacity@Azure:~$ ./make_predict_azure_app.sh
-Port: 443
-{"prediction":[20.35373177134412]}
-```
-
-* Output of streamed log files from deployed application
-
-> 
-## Continuous Integration
-
 ![example workflow](https://github.com/jmcole/AzureDevops/actions/workflows/pythonapp.yml/badge.svg)
+
+## Integrate Flask App into Repository
+With the scaffolding complete the provided machine learning application can be added to the repository.
+[Flask App Source Code](https://github.com/udacity/nd082-Azure-Cloud-DevOps-Starter-Code/tree/master/C2-AgileDevelopmentwithAzure/project/starter_files) 
+
+### Testing Code Locally
+
+The Flask App will require configuration to ensure that it operates succesfully. This can be done on the local machine or within the Azure CLI. To test in Azure cloud, follow the steps noted earlier in [Perform Test in Azure Cloud](https://github.com/jmcole/AzureDevops#perform-test-in-azure-cloud). After the `MakeFile` succesfully runs, start the flask app.
+```  
+export FLASK_APP=app.py
+flask run
+```
+![Flask App](./screenshots/flask.PNG)
+
+Open a new tab and loginto Azure CLI again to test application.
+Run command
+```
+./make_prediction.sh
+
+```
+![Prediction](./screenshots/predict.PNG)
+
+## Create Azure AppService
+In Azure CLI, create the webapp
+```
+az webapp up --name azuredevops-jmc --resource-group resource-group-east --sku FREE
+```
+This will create the web app which will run our project.
+![Azure Portal](./screenshots/app_services2.PNG)
+
+After application completes you can check out the created web application in the Azure Portal. Take note of the URL that was created
+![Azure Portal](./screenshots/app_services.PNG)
+
+
+
+## Setup Pipeline
+Setting up a pipeline between GitHub and Azure will allows us to seamlessly push code from our local machine into the cloud.
+
+1. Create an [AzureDevops](https://azure.microsoft.com/en-us/services/devops/) Account.
+2. Follow [Microsoft tutorial](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python-webapp?view=azure-devops&WT.mc_id=udacity_learn-wwl) to set up pipeline
+
+Azure Devops will link your Github repository to your Azure Web Application. Succesfull deployment of the pipeline will ensure that code pushed locally will flow to Github and then to Azure for deployment.
+
+### Succesful deployment in Devops
+![Pipeline Build](./screenshots/pipeline.PNG)
+### Succesful test of web application
+![Predict](./screenshots/predict_azure.PNG)
+### Succesful deployment of web page
+![Landing page](./screenshots/home.PNG)
+### Web Tail Output on deployed App
+![Tails](./screenshots/web_tail.PNG)
+### Web Log on deployed App
+![Web Log](./screenshots/weblogs.PNG)
+
+
+## Locust Testing
+Locust allows a devloper to perform load testing on their application.
+ 1. Install [Locust](https://locust.io/)
+ ```
+ pip install locust
+
+ ```
+ 2. Create `locustfile.py`
+ 3. Run locust from command line
+ 4. Open [Locust](http://localhost:8089/) from web browser
+ 5. Perform tests on deployed app
+
+### Locust Statistics
+![Locust Running](./screenshots/locust.PNG)
+### Locust Graph
+![Locust Graph](./screenshots/locust_graph.PNG)
+
 
 
 ## Enhancements
 
-<TODO: A short description of how to improve the project in the future>
+This project could be improved by adding a front-end to allow users to interact with the web application directly and choose their own values. Also, a database could be added to allow users to save preferances and predictions.
 
 ## Demo 
 
-<TODO: Add link Screencast on YouTube>
+* [Demo Video](https://youtu.be/DiiBNYAvXnE)
 
 
